@@ -22,9 +22,9 @@ public class UserDaoImpl {
     @Qualifier("jdbcTemplate1")
     private JdbcTemplate jdbcTemplate1;
 
-    /*@Autowired
+    @Autowired
     @Qualifier("jdbcTemplate2")
-    private JdbcTemplate jdbcTemplate2;*/
+    private JdbcTemplate jdbcTemplate2;
 
     public List getAllUser() {
         String sql1 = "select username,email from user1";
@@ -33,10 +33,10 @@ public class UserDaoImpl {
 
         String sql2 = "select username,email from user2";
         //get users list from db2
-//        List list2 = jdbcTemplate2.query(sql2, new UserRowMapper());
+        List list2 = jdbcTemplate2.query(sql2, new UserRowMapper());
 
-//        List listAll = (List) Stream.concat(list1.stream(), list2.stream()).collect(Collectors.toList());
-        return list1;
+        List listAll = (List) Stream.concat(list1.stream(), list2.stream()).collect(Collectors.toList());
+        return listAll;
     }
 
     public static class UserRowMapper implements RowMapper{

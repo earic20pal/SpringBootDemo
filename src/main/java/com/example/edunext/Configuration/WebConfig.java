@@ -2,6 +2,8 @@ package com.example.edunext.Configuration;
 
 import javax.sql.DataSource;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.core.env.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,8 +16,14 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
+@PropertySource(value = { "classpath:application.properties" })
 public class WebConfig {
 
+    @Autowired
+    private Environment environment;
+
+    @Autowired
+    private Registry registry;
 
     @Bean(name = "db1")
     @ConfigurationProperties(prefix = "spring.datasource")
@@ -28,5 +36,23 @@ public class WebConfig {
         return new JdbcTemplate(ds);
     }
 
+    @Bean(name = "db2")
+    @DependsOn("db1")
+    @ConditionalOnBean(Registry.class)
+    @ConfigurationProperties(prefix = "spring.second-db")
+    public DataSource dataSource2() {
+//        return DataSourceBuilder.create().build();
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(environment.getRequiredProperty("spring.second-db.driverClassName"));
+        String jdbcurl="jdbc:mysql://localhost:3306/"+registry.getdb();
+        dataSource.setUrl(jdbcurl);
+        dataSource.setUsername(environment.getRequiredProperty("spring.second-db.username"));
+        dataSource.setPassword(environment.getRequiredProperty("spring.second-db.password"));
+        return dataSource;
+    }
 
+    @Bean(name = "jdbcTemplate2")
+    public JdbcTemplate jdbcTemplate2(@Qualifier("db2") DataSource ds) {
+        return new JdbcTemplate(ds);
+    }
 }
