@@ -21,6 +21,7 @@
                 <span class="font-weight-bold">Users List</span>
             </div>
             <div class="card-body">
+                <form action="/hello1" method="post">
                 <table class="table table-striped" cellspacing="0" width="100%">
                     <thead>
                     <tr>
@@ -37,6 +38,8 @@
                     </c:forEach>
                     </tbody>
                 </table>
+                    <input type="submit" id="sumbit" name="submit"/>
+                </form>
             </div>
         </div>
     </div>

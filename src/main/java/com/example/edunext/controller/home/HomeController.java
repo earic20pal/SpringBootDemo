@@ -26,4 +26,16 @@ public class HomeController {
         model.setViewName("hello");
         return model;
     }
+
+    @RequestMapping("/hello1")
+    public ModelAndView getAllUsers1() {
+        ModelAndView model = new ModelAndView();
+
+        List<User> usersList = userService.getAllUser1();
+        model.addObject("usersList", usersList);
+
+        model.setViewName("hello");
+        return model;
+    }
+
 }
