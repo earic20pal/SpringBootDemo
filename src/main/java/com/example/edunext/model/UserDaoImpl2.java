@@ -41,6 +41,7 @@ public class UserDaoImpl2 {
         return list1;
     }
 
+
     public static class UserRowMapper implements RowMapper{
 
         @Override

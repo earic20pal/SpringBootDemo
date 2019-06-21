@@ -6,6 +6,7 @@ import com.example.edunext.model.User;
 import com.example.edunext.model.UserDaoImpl;
 import com.example.edunext.model.UserDaoImpl2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 
@@ -23,7 +24,12 @@ public class UserService {
         return userDao.getAllUser();
     }
 
-    public List<User> getAllUser1() {
+    public List<User>  getAllUser1() {
         return userDao2.getAllUser();
+    }
+
+    public User finduserByUserName(String username)
+    {
+        return userDao.getUserByUserName(username);
     }
 }

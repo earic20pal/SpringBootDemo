@@ -22,6 +22,7 @@
             </div>
             <div class="card-body">
                 <form action="/hello1" method="post">
+                    <input type="submit" value="submit"  />
                 <table class="table table-striped" cellspacing="0" width="100%">
                     <thead>
                     <tr>
