@@ -48,7 +48,6 @@ public class UserDaoImpl2 {
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             User user = new User();
             user.setUsername(rs.getString("username"));
-            user.setEmail(rs.getString("email"));
 
             return user;
         }

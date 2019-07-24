@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.context.request.RequestContextListener;
 
 @Configuration
 @PropertySource(value = { "classpath:application.properties" })
@@ -38,6 +39,11 @@ public class WebConfig {
     @Bean(name = "jdbcTemplate1")
     public JdbcTemplate jdbcTemplate1(@Qualifier("db1") DataSource ds) {
         return new JdbcTemplate(ds);
+    }
+
+    @Bean
+    public RequestContextListener requestContextListener(){
+        return new RequestContextListener();
     }
 
 

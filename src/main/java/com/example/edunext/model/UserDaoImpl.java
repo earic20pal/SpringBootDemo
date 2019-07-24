@@ -15,6 +15,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @Transactional
 @Repository
@@ -36,8 +38,9 @@ public class UserDaoImpl {
         List list2 = jdbcTemplatelocal.query(sql2, new UserRowMapper());
         return list2;
     }
-    public User getUserByUserName(String username) {
+    public User getUserByUserName(HttpServletRequest request, String username) {
         User user=new User();
+        String url=request.getRequestURL().toString();
         String sql2 = "select userid,password from app_users where userid="+username;
         //get users list from db2
         JdbcTemplate jdbcTemplatelocal = jdbcTemplate2.get("lfis.edunext1.com");
@@ -59,7 +62,6 @@ public class UserDaoImpl {
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             User user = new User();
             user.setUsername(rs.getString("name"));
-            user.setEmail(rs.getString("address"));
 
             return user;
         }

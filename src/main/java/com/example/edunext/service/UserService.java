@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 
 
 @Service
@@ -28,8 +29,8 @@ public class UserService {
         return userDao2.getAllUser();
     }
 
-    public User finduserByUserName(String username)
+    public User finduserByUserName(HttpServletRequest request, String username)
     {
-        return userDao.getUserByUserName(username);
+        return userDao.getUserByUserName(request,username);
     }
 }
